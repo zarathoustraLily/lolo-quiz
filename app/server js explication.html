@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>server js explication.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>Bien sûr, voici un commentaire détaillé en français pour vous aider à comprendre ce que fait ce code :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">require</span>(<span class="hljs-string">'dotenv'</span>).config(); <span class="hljs-comment">// Charger les variables d'environnement depuis le fichier .env</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>); <span class="hljs-comment">// Importer le framework web Express</span>
+<span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>); <span class="hljs-comment">// Importer le middleware CORS pour permettre les requêtes cross-origin</span>
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>); <span class="hljs-comment">// Importer Mongoose pour interagir avec MongoDB</span>
+<span class="hljs-keyword">const</span> passport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'passport'</span>); <span class="hljs-comment">// Importer Passport pour l'authentification</span>
+<span class="hljs-keyword">const</span> session = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-session'</span>); <span class="hljs-comment">// Importer le middleware de session pour gérer les sessions utilisateur</span>
+<span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcryptjs'</span>); <span class="hljs-comment">// Importer bcrypt pour le hachage des mots de passe</span>
+<span class="hljs-keyword">const</span> User = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./models/User'</span>); <span class="hljs-comment">// Importer le modèle utilisateur pour interagir avec la base de données MongoDB</span>
+<span class="hljs-keyword">const</span> { ensureAuthenticated, ensureRole } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./middlewares/auth'</span>); <span class="hljs-comment">// Importer les middlewares pour vérifier l'authentification et les rôles des utilisateurs</span>
+<span class="hljs-keyword">const</span> authRoutes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./routes/auth'</span>); <span class="hljs-comment">// Importer les routes d'authentification</span>
+
+<span class="hljs-keyword">const</span> app = express(); <span class="hljs-comment">// Créer une instance de l'application Express</span>
+<span class="hljs-keyword">const</span> PORT = process.env.PORT || <span class="hljs-number">5000</span>; <span class="hljs-comment">// Définir le port sur lequel le serveur écoute, en utilisant la variable d'environnement PORT ou 5000 par défaut</span>
+
+<span class="hljs-comment">// Middleware</span>
+app.use(cors()); <span class="hljs-comment">// Activer CORS pour permettre les requêtes cross-origin</span>
+app.use(express.json()); <span class="hljs-comment">// Middleware pour parser les requêtes JSON</span>
+app.use(session({ <span class="hljs-attr">secret</span>: process.env.SESSION_SECRET, <span class="hljs-attr">resave</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">saveUninitialized</span>: <span class="hljs-literal">true</span> })); <span class="hljs-comment">// Configurer les sessions en utilisant la variable d'environnement pour le secret de session</span>
+app.use(passport.initialize()); <span class="hljs-comment">// Initialiser Passport pour l'authentification</span>
+app.use(passport.session()); <span class="hljs-comment">// Utiliser les sessions Passport</span>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'./config/passport'</span>)(passport); <span class="hljs-comment">// Configurer Passport avec la stratégie locale</span>
+
+<span class="hljs-comment">// Connect to MongoDB</span>
+mongoose.connect(process.env.MONGODB_URI, {
+  <span class="hljs-attr">useNewUrlParser</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">useUnifiedTopology</span>: <span class="hljs-literal">true</span>
+}); <span class="hljs-comment">// Connexion à la base de données MongoDB en utilisant la variable d'environnement pour l'URI de connexion</span>
+
+<span class="hljs-comment">// Utiliser les routes d'authentification</span>
+app.use(<span class="hljs-string">'/auth'</span>, authRoutes); <span class="hljs-comment">// Toutes les routes définies dans authRoutes seront accessibles sous le chemin /auth</span>
+
+<span class="hljs-comment">// Routes</span>
+app.post(<span class="hljs-string">'/register'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour l'inscription des utilisateurs</span>
+  <span class="hljs-keyword">const</span> { username, password, role } = req.body; <span class="hljs-comment">// Extraction des données de la requête</span>
+  <span class="hljs-keyword">const</span> hashedPassword = <span class="hljs-keyword">await</span> bcrypt.hash(password, <span class="hljs-number">10</span>); <span class="hljs-comment">// Hachage du mot de passe avec un facteur de coût de 10</span>
+  <span class="hljs-keyword">const</span> newUser = <span class="hljs-keyword">new</span> User({ username, <span class="hljs-attr">password</span>: hashedPassword, role }); <span class="hljs-comment">// Création d'un nouvel utilisateur avec le nom d'utilisateur, le mot de passe haché et le rôle</span>
+  <span class="hljs-keyword">await</span> newUser.save(); <span class="hljs-comment">// Sauvegarde de l'utilisateur dans la base de données</span>
+  res.send(<span class="hljs-string">'User registered'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant que l'utilisateur a été enregistré</span>
+});
+
+app.post(<span class="hljs-string">'/login'</span>, passport.authenticate(<span class="hljs-string">'local'</span>, {
+  <span class="hljs-comment">// Route pour la connexion des utilisateurs</span>
+  <span class="hljs-attr">successRedirect</span>: <span class="hljs-string">'/dashboard'</span>, <span class="hljs-comment">// Redirection vers le tableau de bord en cas de succès</span>
+  <span class="hljs-attr">failureRedirect</span>: <span class="hljs-string">'/login'</span>, <span class="hljs-comment">// Redirection vers la page de connexion en cas d'échec</span>
+  <span class="hljs-attr">failureFlash</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// Affichage des messages d'erreur en cas d'échec</span>
+}));
+
+app.get(<span class="hljs-string">'/dashboard'</span>, ensureAuthenticated, (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour accéder au tableau de bord</span>
+  res.send(<span class="hljs-string">'Welcome to your dashboard'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant l'accès au tableau de bord</span>
+});
+
+app.get(<span class="hljs-string">'/scenario'</span>, ensureAuthenticated, ensureRole(<span class="hljs-string">'scenario'</span>), (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour accéder à la section "scenario"</span>
+  res.send(<span class="hljs-string">'Access to scenario'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant l'accès à la section "scenario"</span>
+});
+
+app.get(<span class="hljs-string">'/storyboard'</span>, ensureAuthenticated, ensureRole(<span class="hljs-string">'storyboarder'</span>), (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour accéder à la section "storyboard"</span>
+  res.send(<span class="hljs-string">'Access to storyboard'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant l'accès à la section "storyboard"</span>
+});
+
+app.get(<span class="hljs-string">'/comptabilite'</span>, ensureAuthenticated, ensureRole(<span class="hljs-string">'comptabilite'</span>), (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour accéder à la section "comptabilité"</span>
+  res.send(<span class="hljs-string">'Access to comptabilite'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant l'accès à la section "comptabilité"</span>
+});
+
+app.get(<span class="hljs-string">'/planning'</span>, ensureAuthenticated, ensureRole(<span class="hljs-string">'planning'</span>), (req, res) =&gt; {
+  <span class="hljs-comment">// Route pour accéder à la section "planning"</span>
+  res.send(<span class="hljs-string">'Access to planning'</span>); <span class="hljs-comment">// Réponse envoyée au client indiquant l'accès à la section "planning"</span>
+});
+
+app.listen(PORT, () =&gt; {
+  <span class="hljs-comment">// Démarrage du serveur sur le port spécifié</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server is running on port <span class="hljs-subst">${PORT}</span>`</span>); <span class="hljs-comment">// Affichage d'un message dans la console indiquant que le serveur est en cours d'exécution</span>
+});
+</div></code></pre>
+<h3 id="explication-d%C3%A9taill%C3%A9e">Explication détaillée :</h3>
+<ol>
+<li><strong>Chargement des variables d'environnement</strong> :
+<ul>
+<li><code>require('dotenv').config();</code> : Charge les variables d'environnement depuis un fichier</li>
+</ul>
+</li>
+</ol>
+<p>.env</p>
+<p>.</p>
+<ol start="2">
+<li>
+<p><strong>Importation des modules nécessaires</strong> :</p>
+<ul>
+<li><code>express</code> : Framework web pour Node.js.</li>
+<li><code>cors</code> : Middleware pour activer CORS (Cross-Origin Resource Sharing).</li>
+<li><code>mongoose</code> : Bibliothèque pour interagir avec MongoDB.</li>
+<li><code>passport</code> : Middleware pour l'authentification.</li>
+<li><code>session</code> : Middleware pour gérer les sessions.</li>
+<li><code>bcryptjs</code> : Bibliothèque pour le hachage des mots de passe.</li>
+<li><code>User</code> : Modèle utilisateur pour interagir avec la collection d'utilisateurs dans MongoDB.</li>
+<li><code>ensureAuthenticated</code>, <code>ensureRole</code> : Middlewares pour vérifier l'authentification et les rôles des utilisateurs.</li>
+<li><code>authRoutes</code> : Routes d'authentification.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration de l'application Express</strong> :</p>
+<ul>
+<li><code>const app = express();</code> : Crée une instance de l'application Express.</li>
+<li><code>const PORT = process.env.PORT || 5000;</code> : Définit le port sur lequel le serveur écoute, en utilisant la variable d'environnement <code>PORT</code> ou 5000 par défaut.</li>
+</ul>
+</li>
+<li>
+<p><strong>Middleware</strong> :</p>
+<ul>
+<li><code>app.use(cors());</code> : Active CORS pour permettre les requêtes cross-origin.</li>
+<li><code>app.use(express.json());</code> : Middleware pour parser les requêtes JSON.</li>
+<li><code>app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));</code> : Configure les sessions en utilisant la variable d'environnement pour le secret de session.</li>
+<li><code>app.use(passport.initialize());</code> : Initialise Passport pour l'authentification.</li>
+<li><code>app.use(passport.session());</code> : Utilise les sessions Passport.</li>
+<li><code>require('./config/passport')(passport);</code> : Configure Passport avec la stratégie locale.</li>
+</ul>
+</li>
+<li>
+<p><strong>Connexion à MongoDB</strong> :</p>
+<ul>
+<li><code>mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });</code> : Connexion à la base de données MongoDB en utilisant la variable d'environnement pour l'URI de connexion.</li>
+</ul>
+</li>
+<li>
+<p><strong>Utilisation des routes d'authentification</strong> :</p>
+<ul>
+<li><code>app.use('/auth', authRoutes);</code> : Toutes les routes définies dans <code>authRoutes</code> seront accessibles sous le chemin <code>/auth</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Définition des routes</strong> :</p>
+<ul>
+<li>
+<p><strong>Route d'inscription (<code>/register</code>)</strong> :</p>
+<ul>
+<li><code>app.post('/register', async (req, res) =&gt; { ... });</code> : Définit une route POST pour l'inscription des utilisateurs.</li>
+<li><code>const { username, password, role } = req.body;</code> : Extrait les données de la requête.</li>
+<li><code>const hashedPassword = await bcrypt.hash(password, 10);</code> : Hache le mot de passe avec un facteur de coût de 10.</li>
+<li><code>const newUser = new User({ username, password: hashedPassword, role });</code> : Crée un nouvel utilisateur avec le nom d'utilisateur, le mot de passe haché et le rôle.</li>
+<li><code>await newUser.save();</code> : Sauvegarde l'utilisateur dans la base de données.</li>
+<li><code>res.send('User registered');</code> : Répond au client en indiquant que l'utilisateur a été enregistré.</li>
+</ul>
+</li>
+<li>
+<p><strong>Route de connexion (<code>/login</code>)</strong> :</p>
+<ul>
+<li><code>app.post('/login', passport.authenticate('local', { ... }));</code> : Définit une route POST pour la connexion des utilisateurs.</li>
+<li><code>successRedirect: '/dashboard',</code> : Redirige vers le tableau de bord en cas de succès.</li>
+<li><code>failureRedirect: '/login',</code> : Redirige vers la page de connexion en cas d'échec.</li>
+<li><code>failureFlash: true</code> : Affiche des messages d'erreur en cas d'échec.</li>
+</ul>
+</li>
+<li>
+<p><strong>Route du tableau de bord (<code>/dashboard</code>)</strong> :</p>
+<ul>
+<li><code>app.get('/dashboard', ensureAuthenticated, (req, res) =&gt; { ... });</code> : Définit une route GET pour accéder au tableau de bord.</li>
+<li><code>res.send('Welcome to your dashboard');</code> : Répond au client en indiquant l'accès au tableau de bord.</li>
+</ul>
+</li>
+<li>
+<p><strong>Routes pour les différentes sections</strong> :</p>
+<ul>
+<li><code>app.get('/scenario', ensureAuthenticated, ensureRole('scenario'), (req, res) =&gt; { ... });</code> : Définit une route GET pour accéder à la section &quot;scenario&quot;.</li>
+<li><code>app.get('/storyboard', ensureAuthenticated, ensureRole('storyboarder'), (req, res) =&gt; { ... });</code> : Définit une route GET pour accéder à la section &quot;storyboard&quot;.</li>
+<li><code>app.get('/comptabilite', ensureAuthenticated, ensureRole('comptabilite'), (req, res) =&gt; { ... });</code> : Définit une route GET pour accéder à la section &quot;comptabilité&quot;.</li>
+<li><code>app.get('/planning', ensureAuthenticated, ensureRole('planning'), (req, res) =&gt; { ... });</code> : Définit une route GET pour accéder à la section &quot;planning&quot;.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Démarrage du serveur</strong> :</p>
+<ul>
+<li><code>app.listen(PORT, () =&gt; { ... });</code> : Démarre le serveur sur le port spécifié.</li>
+<li><code>console.log(</code>Server is running on port ${PORT}<code>);</code> : Affiche un message dans la console indiquant que le serveur est en cours d'exécution.</li>
+</ul>
+</li>
+</ol>
+<p>Ce code configure un serveur Express avec des routes pour l'inscription, la connexion et l'accès à différentes sections de l'application, en utilisant des middlewares pour l'authentification et la gestion des rôles. Les informations sensibles telles que les secrets de session et les URI de connexion à la base de données sont stockées dans des variables d'environnement pour améliorer la sécurité.</p>
+
+</body>
+</html>

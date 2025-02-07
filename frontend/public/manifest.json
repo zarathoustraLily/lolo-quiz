@@ -1,0 +1,20 @@
+{
+  "short_name": "Quiz DCG",
+  "name": "Quiz DCG/DSCG",
+  "description": "Application de quiz pour la préparation aux examens DCG et DSCG",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4c268f",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "categories": ["education", "quiz"],
+  "prefer_related_applications": false
+} 

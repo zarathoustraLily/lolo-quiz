@@ -1,0 +1,175 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0be059;
+}
+
+#root {
+  display: flex;
+  height: 100vh;
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  color: black;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-desktop {
+  background-color: lightblue;
+}
+
+.App-mobile {
+  background-color: lightgreen;
+}
+
+.top-bar {
+  width: 100%;
+  height: 40px;
+  background-color: #491818;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.top-bar .title {
+  color: white;
+  font-family: 'Impact', sans-serif;
+  font-size: 20px;
+}
+
+.side-bar {
+  width: 70px;
+  height: calc(100vh - 40px);
+  background-color: #7d7c7b;
+  position: fixed;
+  top: 40px;
+  left: 0;
+}
+
+.content {
+  margin-top: 40px;
+  margin-left: 70px;
+  padding: 20px;
+  flex-grow: 1;
+  color: white;
+}
+
+.main-menu {
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+/* Styles pour mobile - boutons carrés */
+.App-mobile .button-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.App-mobile .button-container button {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: transparent; /* Important pour éviter les conflits */
+  padding-top: 0;
+  margin: 0;
+}
+
+.App-mobile .button-container button span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background-color: inherit;
+  border-radius: inherit;
+}
+
+/* Styles communs pour les boutons - DÉPLACÉ EN HAUT */
+.App-mobile .button-container button:nth-child(1) span {
+  background-color: #0b92e0;
+}
+
+.App-mobile .button-container button:nth-child(2) span {
+  background-color: #e00b92;
+}
+
+/* Styles pour desktop - boutons en ligne */
+.App-desktop .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.App-desktop .button-container button {
+  width: 100%;
+  height: 60px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.App-desktop .button-container button:nth-child(1) {
+  background-color: #0b92e0;
+}
+
+.App-desktop .button-container button:nth-child(2) {
+  background-color: #e00b92;
+}
+
+/* Effets de survol */
+.App-desktop .button-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.App-mobile .button-container button:active span {
+  transform: scale(0.95);
+}
+
+/* Styles pour desktop */
+@media screen and (min-width: 769px) {
+  .App-desktop {
+    background-color: lightblue;
+  }
+
+  .button-container {
+    padding: 40px;
+  }
+}

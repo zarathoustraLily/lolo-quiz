@@ -1,0 +1,143 @@
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgb(76, 38, 143);
+}
+
+.question-container {
+  background-color: #000;
+  color: white;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 30vh;
+}
+
+.question-container h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+.answer-button {
+  background-color: #808080;
+  color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.answer-button:hover:not(:disabled) {
+  background-color: #666;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.answers-container.correct .answer-button {
+  background-color: #4CAF50;
+  pointer-events: none;
+}
+
+.answers-container.incorrect .answer-button {
+  background-color: #f44336;
+  pointer-events: none;
+}
+
+.error-message {
+  margin-top: 20px;
+  color: #f44336;
+  font-size: 1.1rem;
+}
+
+/* Styles pour desktop */
+@media (min-width: 769px) {
+  .quiz-container {
+    padding: 40px;
+  }
+
+  .question-container {
+    padding: 40px;
+    margin-bottom: 40px;
+  }
+
+  .answers-container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .answer-button {
+    padding: 25px 30px;
+  }
+}
+
+/* Styles pour tablette */
+@media (max-width: 768px) {
+  .quiz-container {
+    padding: 20px;
+  }
+
+  .question-container {
+    padding: 25px;
+    margin-bottom: 30px;
+  }
+
+  .question-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .answer-button {
+    font-size: 1.1rem;
+    padding: 15px 20px;
+  }
+}
+
+/* Styles pour mobile */
+@media (max-width: 480px) {
+  .quiz-container {
+    padding: 15px;
+  }
+
+  .question-container {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .question-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .answer-button {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+} 

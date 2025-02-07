@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>auths js decription.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>Bien sûr, voici un commentaire détaillé du code pour vous aider à comprendre ce qui se passe :</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Importation des modules nécessaires</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>); <span class="hljs-comment">// Framework web pour Node.js</span>
+<span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcrypt'</span>); <span class="hljs-comment">// Bibliothèque pour le hachage des mots de passe</span>
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonwebtoken'</span>); <span class="hljs-comment">// Bibliothèque pour la création et la vérification des tokens JWT</span>
+<span class="hljs-keyword">const</span> User = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../models/User'</span>); <span class="hljs-comment">// Modèle utilisateur pour interagir avec la base de données MongoDB</span>
+<span class="hljs-keyword">const</span> validator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'validator'</span>); <span class="hljs-comment">// Bibliothèque pour valider et nettoyer les entrées utilisateur</span>
+
+<span class="hljs-comment">// Création d'un routeur Express</span>
+<span class="hljs-keyword">const</span> router = express.Router();
+
+<span class="hljs-comment">// Route pour l'inscription des utilisateurs</span>
+router.post(<span class="hljs-string">'/register'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-comment">// Extraction des données de la requête</span>
+  <span class="hljs-keyword">const</span> { email, password, role } = req.body;
+
+  <span class="hljs-comment">// Valider et nettoyer les entrées utilisateur</span>
+  <span class="hljs-keyword">if</span> (!validator.isEmail(email)) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Invalid email format'</span>); <span class="hljs-comment">// Vérifie si l'email est valide</span>
+  }
+  <span class="hljs-keyword">if</span> (!validator.isStrongPassword(password)) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Password is not strong enough'</span>); <span class="hljs-comment">// Vérifie si le mot de passe est suffisamment fort</span>
+  }
+  <span class="hljs-keyword">if</span> (role &amp;&amp; ![<span class="hljs-string">'user'</span>, <span class="hljs-string">'admin'</span>].includes(role)) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Invalid role'</span>); <span class="hljs-comment">// Vérifie si le rôle est valide</span>
+  }
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Hachage du mot de passe avec un facteur de coût de 10</span>
+    <span class="hljs-keyword">const</span> hashedPassword = <span class="hljs-keyword">await</span> bcrypt.hash(password, <span class="hljs-number">10</span>);
+    <span class="hljs-comment">// Création d'un nouvel utilisateur avec l'email, le mot de passe haché et le rôle</span>
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> User({ <span class="hljs-attr">email</span>: validator.escape(email), <span class="hljs-attr">password</span>: hashedPassword, role });
+    <span class="hljs-comment">// Sauvegarde de l'utilisateur dans la base de données</span>
+    <span class="hljs-keyword">await</span> user.save();
+    <span class="hljs-comment">// Réponse avec un statut 201 (créé) si l'inscription est réussie</span>
+    res.status(<span class="hljs-number">201</span>).send(<span class="hljs-string">'User registered'</span>);
+  } <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-comment">// Réponse avec un statut 400 (mauvaise requête) en cas d'erreur</span>
+    res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Error registering user'</span>);
+  }
+});
+
+<span class="hljs-comment">// Route pour la connexion des utilisateurs</span>
+router.post(<span class="hljs-string">'/login'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-comment">// Extraction des données de la requête</span>
+  <span class="hljs-keyword">const</span> { email, password } = req.body;
+
+  <span class="hljs-comment">// Valider et nettoyer les entrées utilisateur</span>
+  <span class="hljs-keyword">if</span> (!validator.isEmail(email)) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Invalid email format'</span>); <span class="hljs-comment">// Vérifie si l'email est valide</span>
+  }
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Recherche de l'utilisateur par email dans la base de données</span>
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({ <span class="hljs-attr">email</span>: validator.escape(email) });
+    <span class="hljs-keyword">if</span> (!user) {
+      <span class="hljs-comment">// Réponse avec un statut 400 (mauvaise requête) si l'utilisateur n'est pas trouvé</span>
+      <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'User not found'</span>);
+    }
+    <span class="hljs-comment">// Comparaison du mot de passe fourni avec le mot de passe haché stocké</span>
+    <span class="hljs-keyword">const</span> isMatch = <span class="hljs-keyword">await</span> bcrypt.compare(password, user.password);
+    <span class="hljs-keyword">if</span> (!isMatch) {
+      <span class="hljs-comment">// Réponse avec un statut 400 (mauvaise requête) si les mots de passe ne correspondent pas</span>
+      <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Invalid credentials'</span>);
+    }
+    <span class="hljs-comment">// Création d'un token JWT avec l'ID de l'utilisateur et son rôle, expirant dans 1 heure</span>
+    <span class="hljs-keyword">const</span> token = jwt.sign({ <span class="hljs-attr">userId</span>: user._id, <span class="hljs-attr">role</span>: user.role }, process.env.JWT_SECRET, { <span class="hljs-attr">expiresIn</span>: <span class="hljs-string">'1h'</span> });
+    <span class="hljs-comment">// Réponse avec le token JWT en cas de succès</span>
+    res.json({ token });
+  } <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-comment">// Réponse avec un statut 400 (mauvaise requête) en cas d'erreur</span>
+    res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Error logging in'</span>);
+  }
+});
+
+<span class="hljs-comment">// Exportation du routeur pour l'utiliser dans d'autres parties de l'application</span>
+<span class="hljs-built_in">module</span>.exports = router;
+</div></code></pre>
+<h3 id="explication-d%C3%A9taill%C3%A9e">Explication détaillée :</h3>
+<ol>
+<li>
+<h2 id="importation-des-modules"><strong>Importation des modules</strong> :</h2>
+</li>
+</ol>
+<p>express</p>
+<h2 id="utilis%C3%A9-pour-cr%C3%A9er-des-routes-et-g%C3%A9rer-les-requ%C3%AAtes-http">: Utilisé pour créer des routes et gérer les requêtes HTTP.</h2>
+<p>bcrypt</p>
+<p>: Utilisé pour hacher les mots de passe avant de les stocker dans la base de données.</p>
+<ul>
+<li><code>jsonwebtoken</code> : Utilisé pour créer et vérifier les tokens JWT pour l'authentification.</li>
+<li></li>
+</ul>
+<p>User</p>
+<p>: Modèle utilisateur pour interagir avec la collection d'utilisateurs dans MongoDB.</p>
+<ul>
+<li><code>validator</code> : Utilisé pour valider et nettoyer les entrées utilisateur afin de prévenir les injections et autres attaques.</li>
+</ul>
+<ol start="2">
+<li>
+<h2 id="cr%C3%A9ation-du-routeur"><strong>Création du routeur</strong> :</h2>
+</li>
+</ol>
+<p>express.Router()</p>
+<p>: Crée un nouvel objet routeur pour définir les routes d'authentification.</p>
+<ol start="3">
+<li>
+<h2 id="route-dinscription-register"><strong>Route d'inscription (<code>/register</code>)</strong> :</h2>
+</li>
+</ol>
+<p>router.post('/register', async (req, res) =&gt; { ... })</p>
+<p>: Définit une route POST pour l'inscription des utilisateurs.</p>
+<ul>
+<li><code>const { email, password, role } = req.body</code> : Extrait les données de la requête.</li>
+<li><code>if (!validator.isEmail(email)) { ... }</code> : Vérifie si l'email est valide.</li>
+<li><code>if (!validator.isStrongPassword(password)) { ... }</code> : Vérifie si le mot de passe est suffisamment fort.</li>
+<li><code>if (role &amp;&amp; !['user', 'admin'].includes(role)) { ... }</code> : Vérifie si le rôle est valide.</li>
+<li></li>
+</ul>
+<p>const hashedPassword = await bcrypt.hash(password, 10)</p>
+<h2 id="hache-le-mot-de-passe-avec-un-facteur-de-co%C3%BBt-de-10">: Hache le mot de passe avec un facteur de coût de 10.</h2>
+<p>const user = new User({ email: validator.escape(email), password: hashedPassword, role })</p>
+<h2 id="cr%C3%A9e-un-nouvel-utilisateur-avec-lemail-le-mot-de-passe-hach%C3%A9-et-le-r%C3%B4le">: Crée un nouvel utilisateur avec l'email, le mot de passe haché et le rôle.</h2>
+<p>await user.save()</p>
+<h2 id="sauvegarde-lutilisateur-dans-la-base-de-donn%C3%A9es">: Sauvegarde l'utilisateur dans la base de données.</h2>
+<p>res.status(201).send('User registered')</p>
+<h2 id="r%C3%A9pond-avec-un-statut-201-si-linscription-est-r%C3%A9ussie">: Répond avec un statut 201 si l'inscription est réussie.</h2>
+<p>res.status(400).send('Error registering user')</p>
+<p>: Répond avec un statut 400 en cas d'erreur.</p>
+<ol start="4">
+<li>
+<h2 id="route-de-connexion-login"><strong>Route de connexion (<code>/login</code>)</strong> :</h2>
+</li>
+</ol>
+<p>router.post('/login', async (req, res) =&gt; { ... })</p>
+<p>: Définit une route POST pour la connexion des utilisateurs.</p>
+<ul>
+<li><code>const { email, password } = req.body</code> : Extrait les données de la requête.</li>
+<li><code>if (!validator.isEmail(email)) { ... }</code> : Vérifie si l'email est valide.</li>
+<li></li>
+</ul>
+<p>const user = await User.findOne({ email: validator.escape(email) })</p>
+<p>: Recherche l'utilisateur par email dans la base de données.</p>
+<ul>
+<li><code>if (!user) { return res.status(400).send('User not found') }</code> : Vérifie si l'utilisateur existe.</li>
+<li></li>
+</ul>
+<p>const isMatch = await bcrypt.compare(password, user.password)</p>
+<p>: Compare le mot de passe fourni avec le mot de passe haché stocké.</p>
+<ul>
+<li><code>if (!isMatch) { return res.status(400).send('Invalid credentials') }</code> : Vérifie si les mots de passe correspondent.</li>
+<li></li>
+</ul>
+<p>const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' })</p>
+<h2 id="cr%C3%A9e-un-token-jwt-avec-lid-de-lutilisateur-et-son-r%C3%B4le-expirant-dans-1-heure">: Crée un token JWT avec l'ID de l'utilisateur et son rôle, expirant dans 1 heure.</h2>
+<p>res.json({ token })</p>
+<h2 id="r%C3%A9pond-avec-le-token-jwt-en-cas-de-succ%C3%A8s">: Répond avec le token JWT en cas de succès.</h2>
+<p>res.status(400).send('Error logging in')</p>
+<p>: Répond avec un statut 400 en cas d'erreur.</p>
+<ol start="5">
+<li>
+<h2 id="exportation-du-routeur"><strong>Exportation du routeur</strong> :</h2>
+</li>
+</ol>
+<p>module.exports = router</p>
+<p>: Exporte le routeur pour qu'il puisse être utilisé dans d'autres parties de l'application, comme dans le fichier <code>server.js</code>.</p>
+<p>Ce code gère l'inscription et la connexion des utilisateurs en utilisant des mots de passe hachés et des tokens JWT pour l'authentification, tout en validant et en nettoyant les entrées utilisateur pour prévenir les vulnérabilités.</p>
+
+</body>
+</html>

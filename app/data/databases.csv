@@ -1,0 +1,4 @@
+name,uri
+main_db,mongodb://db:27017/main_db
+database1,mongodb://db:27017/database1
+database2,mongodb://db:27017/database2
